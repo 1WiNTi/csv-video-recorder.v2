@@ -10,7 +10,7 @@ stored in a database, looked up by company name and previewed in a browser.
 
 ## Sample output
 
-[`q.solutions.webm`](q.solutions.webm) - one video recorded by this tool.
+[`sample/sample.webm`](sample/sample.webm) - one video recorded by this tool.
 
 ## Setup (once)
 
