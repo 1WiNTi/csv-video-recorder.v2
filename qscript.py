@@ -9,7 +9,7 @@ from playwright.sync_api import sync_playwright
 
 PATH_TO_VIDEO_FOLDER = "./video"
 
-HEADLESS = True
+HEADLESS = False  # headed by default: DuckDuckGo often shows a bot check in headless mode
 VIEWPORT = {"width": 1280, "height": 720}
 
 SEARCH_BOX = 'textarea[name="q"]:visible, input[name="q"]:visible'
@@ -206,6 +206,15 @@ def _wait_results(page, timeout=60.0):
         except Exception:
             pass  # "Execution context was destroyed" during navigation - keep polling
         time.sleep(0.5)
+    # Diagnostics: what is actually on the screen?
+    try:
+        print(f"  page url:   {page.url}")
+        print(f"  page title: {page.title()}")
+        shot = os.path.join(os.path.abspath(PATH_TO_VIDEO_FOLDER), "debug_last_failure.png")
+        page.screenshot(path=shot)
+        print(f"  screenshot: {shot}")
+    except Exception as e:
+        print(f"  (diagnostics failed: {e})")
     raise TimeoutError("search results did not appear")
 
 
